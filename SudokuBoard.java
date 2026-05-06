@@ -32,6 +32,15 @@ public class SudokuBoard {
         }
     }
     
+    public boolean isSolve(){
+      if(!isValid()){
+         return false;
+      }if (!isSolved()){
+         return true;
+      }
+      return true
+    }
+    
     //calling the methods and validating them (with true or false)
     public boolean isValid() {
         if (!checkNumbers())
