@@ -3,11 +3,13 @@ import java.io.*;
 
 public class SudokuBoard {
     private int[][] board;
-
+   
+   //Constructor   
     public SudokuBoard() {
         board = new int[9][9];
     }
 
+    //
     public SudokuBoard(String fileName) {
         this();
         try {
@@ -29,7 +31,8 @@ public class SudokuBoard {
             System.out.println("Error: File not found.");
         }
     }
-
+    
+    //calling the methods and validating them (with true or false)
     public boolean isValid() {
         if (!checkNumbers())
             return false;
@@ -42,7 +45,8 @@ public class SudokuBoard {
 
         return true;
     }
-
+   
+   //Checking that we have numbers from 0 to 9 on the board
     private boolean checkNumbers() {
         for (int r = 0; r < board.length; r++) {
             for (int c = 0; c < board[0].length; c++) {
@@ -55,6 +59,7 @@ public class SudokuBoard {
         return true;
     }
 
+   //Checks if the numbers is repeated in the row, otherwise it will place it in
     private boolean checkRow() {
         for (int r = 0; r < board.length; r++) {
             Set < Integer > set = new HashSet < > ();
@@ -71,7 +76,8 @@ public class SudokuBoard {
 
         return true;
     }
-
+   
+   //Checks if the numbers is repeated in the col, otherwise it will place it in
     private boolean checkCol() {
         for (int r = 0; r < board.length; r++) {
             Set < Integer > set = new HashSet < > ();
@@ -87,17 +93,16 @@ public class SudokuBoard {
 
         return true;
     }
-
+   
+   //Checks if the numbers is repeated or does exist in the box, otherwise it will add it
     private boolean checkBox() {
         for (int boxRow = 0; boxRow < 3; boxRow++) {
             for (int boxCol = 0; boxCol <
                 3; boxCol++) { // checks the first, second, and third box
                 Set < Integer > set = new HashSet < > ();
                 for (int r = 0; r < 3; r++) {
-                    for (int c = 0; c <
-                        3; c++) { // checks the first row, then first column of the box
-                        int val = board[boxRow * 3 + r][boxCol * 3 +
-                        c]; // adds the value of the board at the location of [(if in the case box row 0 and row 1 of the box then (0*3+1))]
+                    for (int c = 0; c < 3; c++) { // checks the first row, then first column of the box
+                        int val = board[boxRow * 3 + r][boxCol * 3 + c]; // adds the value of the board at the location of [(if in the case box row 0 and row 1 of the box then (0*3+1))]
                         if (val != 0) {
                             if (set.contains(val))
                                 return false;
@@ -110,7 +115,8 @@ public class SudokuBoard {
 
         return true;
     }
-
+    
+    //checks if the board is valid
     public boolean isSolved() {
         if (!isValid())
             return false;
@@ -122,7 +128,7 @@ public class SudokuBoard {
                 int val = board[r][c];
 
                 if (val != 0) {
-                    if (map.containsKey(val)) {
+                    if (map.containsKey(val)) { //is checking if the value is unique
                         map.put(val, map.get(val) + 1);
                     } else {
                         map.put(val, 1);
@@ -140,7 +146,7 @@ public class SudokuBoard {
 
         return true;
     }
-
+   //prints the board
     public String toString() {
         String result = "";
         String line = "+-------+-------+-------+\n";
