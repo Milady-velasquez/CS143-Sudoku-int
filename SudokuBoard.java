@@ -32,14 +32,31 @@ public class SudokuBoard {
         }
     }
     
+    //this recursive method solves the sudoku board
     public boolean isSolve(){
       if(!isValid()){
          return false;
       }if (!isSolved()){
          return true;
       }
-      return true
-    }
+      for(int c = 0; c < board[0].length; c++){
+         for(int r = 0; r < board.length; r++){ 
+               if(board[r][c] == 0){   //it just does what it has to do :( ////first check if it is empty and then 
+               
+               for(int i = 1; i <= 9; i++){
+                  board[r][c] = i;
+               if (isSolve()){
+                  return true;
+               } 
+               board[r][c] = 0;   
+               } 
+            }
+         }
+      }
+      
+      return true;
+      
+   }
     
     //calling the methods and validating them (with true or false)
     public boolean isValid() {
